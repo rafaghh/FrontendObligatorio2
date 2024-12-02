@@ -1,0 +1,59 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+
+
+
+
+
+
+
+/* Contenedor del video */
+.video-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -1; /* Mueve el video detrás del contenido */
+}
+
+/* Configuración del video */
+.video-background video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Asegura que el video cubra toda la pantalla */
+}
+
+/* Capa de opacidad */
+.video-background .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3); /* Oscurece el video para mayor claridad */
+  pointer-events: none; /* Permite que el contenido sea interactivo */
+}
+
+/* Estilo del contenido */
+.content {
+  position: relative;
+  z-index: 1; /* Mantén el contenido por encima del video */
+  color: white; /* Ajusta el color del texto según sea necesario */
+  text-align: center;
+  padding: 20px;
+}

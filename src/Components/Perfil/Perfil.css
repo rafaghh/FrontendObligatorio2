@@ -1,0 +1,108 @@
+/* Contenedor principal */
+.perfil-container {
+  display: flex;
+  max-width: 1200px;
+  margin: 40px auto;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  font-family: "Arial", sans-serif;
+}
+
+/* Barra lateral */
+.perfil-sidebar {
+  width: 25%;
+  background-color: #1f2833;
+  color: #ffffff;
+  padding: 20px;
+  text-align: center;
+}
+
+.perfil-sidebar h2 {
+  margin-bottom: 20px;
+  font-size: 22px;
+}
+
+.perfil-sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.perfil-sidebar ul li {
+  margin: 15px 0;
+  padding: 10px;
+  cursor: pointer;
+  background-color: #45a29e;
+  border-radius: 5px;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.perfil-sidebar ul li:hover {
+  background-color: #66fcf1;
+}
+
+/* Contenido */
+.perfil-content {
+  width: 75%;
+  padding: 30px;
+}
+
+.perfil-content section {
+  margin-bottom: 30px;
+}
+
+.perfil-content h2 {
+  margin-bottom: 15px;
+  color: #1f2833;
+}
+
+.compras-lista {
+  list-style: none;
+  padding: 0;
+}
+
+.compras-lista li {
+  margin-bottom: 20px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.compras-lista li ul {
+  margin-top: 10px;
+}
+
+.editar-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.editar-form label {
+  font-weight: bold;
+  color: #1f2833;
+}
+
+.editar-form input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.editar-form button {
+  padding: 10px 20px;
+  background-color: #45a29e;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.editar-form button:hover {
+  background-color: #66fcf1;
+}

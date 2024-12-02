@@ -1,0 +1,115 @@
+/* Contenedor principal */
+.admin-dashboard {
+  max-width: 900px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  font-family: "Arial", sans-serif;
+}
+
+/* Título */
+.admin-dashboard h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* Botón de agregar juego */
+.admin-dashboard button {
+  display: block;
+  margin: 0 auto 20px auto;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.admin-dashboard button:hover {
+  background-color: #0056b3;
+}
+
+/* Tabla */
+.admin-dashboard table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.admin-dashboard th,
+.admin-dashboard td {
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+.admin-dashboard th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+  color: #333;
+}
+
+.admin-dashboard tr:hover {
+  background-color: #f9f9f9;
+}
+
+/* Botones de acción */
+.admin-dashboard td button {
+  margin: 5px;
+  padding: 8px 15px;
+  font-size: 14px;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.admin-dashboard td button:first-of-type {
+  background-color: #28a745; /* Verde para "Editar" */
+}
+
+.admin-dashboard td button:first-of-type:hover {
+  background-color: #218838;
+}
+
+.admin-dashboard td button:last-of-type {
+  background-color: #dc3545; /* Rojo para "Eliminar" */
+}
+
+.admin-dashboard td button:last-of-type:hover {
+  background-color: #c82333;
+}
+
+/* Responsive para móviles */
+@media (max-width: 768px) {
+  .admin-dashboard {
+    padding: 10px;
+  }
+
+  .admin-dashboard h1 {
+    font-size: 20px;
+  }
+
+  .admin-dashboard button {
+    font-size: 14px;
+  }
+
+  .admin-dashboard th,
+  .admin-dashboard td {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .admin-dashboard td button {
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+}
