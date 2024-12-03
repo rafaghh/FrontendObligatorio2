@@ -1,66 +1,65 @@
 .detalles-juego-container {
-    max-width: 800px;
-    margin: 0 auto;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    font-family: 'Arial', sans-serif;
-    border-top: 10px solid #e74c3c;
-    margin-top: 20px;
-    margin-bottom: 20px;
-  }
-  
-  .detalles-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    border-bottom: 2px solid #eaeaea;
-    padding-bottom: 10px;
-  }
-  
-  .detalles-header h1 {
-    font-size: 1.8rem;
-    color: #333;
-  }
-  
-  .detalles-precio {
-    font-size: 1.5rem;
-    color: #e74c3c;
-    font-weight: bold;
-  }
-  
-  .detalles-body {
-    display: flex;
-    gap: 20px;
-  }
-  
-  .juego-imagen {
-    width: 429px;
-    height: 607px;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .detalles-info {
-    flex: 1;
-  }
-  
-  .detalles-info p {
-    font-size: 1rem;
-    margin: 10px 0;
-    color: #555;
-  }
-  
-  .detalles-info strong {
-    color: #333;
-  }
-  
-  .detalles-error {
-    text-align: center;
-    font-size: 1.5rem;
-    color: #e74c3c;
-    margin-top: 20px;
-  }
-  
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  font-family: "Arial", sans-serif;
+  border-top: 10px solid #e74c3c;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.detalles-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #eaeaea;
+  padding-bottom: 10px;
+}
+
+.detalles-header h1 {
+  font-size: 1.8rem;
+  color: #333;
+}
+
+.detalles-precio {
+  font-size: 1.5rem;
+  color: #e74c3c;
+  font-weight: bold;
+}
+
+.detalles-body {
+  display: flex;
+  gap: 20px;
+}
+
+.juego-imagen {
+  width: 429px;
+  height: 607px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.detalles-info {
+  flex: 1;
+}
+
+.detalles-info p {
+  font-size: 1rem;
+  margin: 10px 0;
+  color: #555;
+}
+
+.detalles-info strong {
+  color: #333;
+}
+
+.detalles-error {
+  text-align: center;
+  font-size: 1.5rem;
+  color: #e74c3c;
+  margin-top: 20px;
+}

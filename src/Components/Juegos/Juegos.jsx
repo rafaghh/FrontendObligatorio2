@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Juego from "./Components/Juego";
 import "./Juegos.css";
-import { Link } from "react-router-dom";
 import Cargando from "../Cargando/Cargando";
 
-function Juegos() {
+function Juegos({ toggleCart }) {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
@@ -47,15 +46,15 @@ function Juegos() {
       ) : (
         <div className="lugares-container">
           {filteredVideojuegos.map((juego) => (
-            <Link to={`/juego/${juego.idVideojuego}`} key={juego.idVideojuego}>
-              <Juego
-                id={juego.idVideojuego}
-                imageUrl={juego.imagen}
-                name={juego.nombreVideojuego}
-                description={juego.descripcion}
-                precio={juego.precio}
-              />
-            </Link>
+            <Juego
+              key={juego.idVideojuego}
+              id={juego.idVideojuego}
+              imageUrl={juego.imagen}
+              name={juego.nombreVideojuego}
+              description={juego.descripcion}
+              precio={juego.precio}
+              toggleCart={toggleCart} 
+            />
           ))}
         </div>
       )}

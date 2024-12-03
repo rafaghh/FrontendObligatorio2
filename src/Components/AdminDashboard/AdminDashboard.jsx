@@ -7,7 +7,6 @@ function AdminDashboard() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Cargar los juegos desde el backend
     const fetchJuegos = async () => {
       try {
         const response = await fetch("http://localhost:5001/videojuegos/all");
@@ -22,38 +21,41 @@ function AdminDashboard() {
   }, []);
 
   const eliminarJuego = async (id) => {
-
-    const confirmar = window.confirm("¿Estás seguro de que deseas eliminar este juego?");
+    const confirmar = window.confirm(
+      "¿Estás seguro de que deseas eliminar este juego?"
+    );
     if (!confirmar) {
-      return; 
+      return;
     }
-  
+
     try {
-      const response = await fetch(`http://localhost:5001/videojuegos/delete/${id}`, {
-        method: "DELETE",
-      });
-  
+      const response = await fetch(
+        `http://localhost:5001/videojuegos/delete/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
+
       if (!response.ok) {
         const errorText = await response.text();
         throw new Error("Error al eliminar el juego: " + errorText);
       }
 
       setJuegos(juegos.filter((juego) => juego.idVideojuego !== id));
-  
+
       alert("Juego eliminado con éxito.");
     } catch (error) {
       console.error("Error al eliminar el juego:", error);
       alert("No se pudo eliminar el juego. Por favor, inténtalo de nuevo.");
     }
   };
-  
 
   const editarJuego = (id) => {
-    navigate(`/editar-juego/${id}`); // Redirige a la página de edición
+    navigate(`/editar-juego/${id}`); 
   };
 
   const agregarJuego = () => {
-    navigate("/agregar-juego"); // Redirige a la página para agregar juegos
+    navigate("/agregar-juego"); 
   };
 
   return (

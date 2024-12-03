@@ -2,13 +2,24 @@ import React from "react";
 import "./Juego.css";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import { useNavigate } from "react-router-dom";
+import { useCart } from "../../../Hooks/useCart";
 
-function Juego({ id, imageUrl, name, description, precio }) {
-  const navigate = useNavigate();
+function Juego({ id, imageUrl, name, description, precio, toggleCart }) {
+  const { addToCart } = useCart();
 
-  const handleDetailsClick = () => {
-    navigate(`/juego/${id}`); // Asegúrate de usar id aquí
+  const handleBuyClick = () => {
+    const game = {
+      id,
+      nombre: name,
+      descripcion: description,
+      precio,
+      image: imageUrl,
+      quantity: 1,
+    };
+
+    addToCart(game, () => {
+      toggleCart(); 
+    });
   };
 
   return (
@@ -18,13 +29,15 @@ function Juego({ id, imageUrl, name, description, precio }) {
           <Card.Title>{name}</Card.Title>
           <Card.Text>{description}</Card.Text>
           <Card.Text>${precio}</Card.Text>
-          <Button
-            variant="outline-light"
-            className="detalles"
-            onClick={handleDetailsClick}
-          >
-            Ver Detalles
-          </Button>
+          <div className="button-group">
+            <Button
+              variant="outline-light"
+              className="detalles"
+              onClick={handleBuyClick}
+            >
+              Comprar
+            </Button>
+          </div>
         </Card.Body>
       </Card>
     </div>

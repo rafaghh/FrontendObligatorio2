@@ -1,4 +1,3 @@
-/* Estilos principales del contenedor */
 .form-container {
   max-width: 400px;
   margin: 50px auto;
@@ -10,7 +9,6 @@
   font-family: Arial, sans-serif;
 }
 
-/* Título del formulario */
 .form-title {
   font-size: 24px;
   font-weight: bold;
@@ -18,7 +16,6 @@
   color: #333;
 }
 
-/* Contenido del formulario */
 .form-content input,
 .form-content textarea,
 .form-content button {
@@ -30,7 +27,6 @@
   font-size: 16px;
 }
 
-/* Estilo de los inputs */
 .form-content input:focus,
 .form-content textarea:focus {
   outline: none;
@@ -38,13 +34,11 @@
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
-/* Estilo del textarea */
 .form-content textarea {
   resize: none;
   height: 100px;
 }
 
-/* Botón */
 .form-content button {
   background-color: #007bff;
   color: #fff;
@@ -58,7 +52,6 @@
   background-color: #0056b3;
 }
 
-/* Responsive para móviles */
 @media (max-width: 576px) {
   .form-container {
     padding: 20px;

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
 function Salir() {
-    sessionStorage.clear();
-    window.location.assign('/');
+  sessionStorage.clear();
+  window.location.assign("/");
 }
 
 function ModoPremiumForm({ userId, isPremium }) {
@@ -10,31 +10,30 @@ function ModoPremiumForm({ userId, isPremium }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
       const endpoint = isPremium
         ? `http://localhost:5001/usuarios/convertir-a-comun/${userId}`
         : `http://localhost:5001/usuarios/convertir-a-premium/${userId}`;
-  
+
       const body = isPremium
         ? null
         : JSON.stringify({
-            fechaMembresia: new Date().toISOString().split("T")[0], // yyyy-MM-dd
+            fechaMembresia: new Date().toISOString().split("T")[0], 
             tarjeta,
           });
-  
+
       const response = await fetch(endpoint, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body,
       });
-  
+
       if (!response.ok) {
         const errorText = await response.text();
         throw new Error(errorText);
       }
-  
-      // Eliminar ID del usuario y redirigir
+
       alert("Para confirmar los cambios, vuelve a iniciar sesión.");
       Salir();
     } catch (error) {
@@ -42,7 +41,6 @@ function ModoPremiumForm({ userId, isPremium }) {
       alert(error.message || "Ocurrió un error, por favor intenta de nuevo.");
     }
   };
-  
 
   return (
     <form onSubmit={handleSubmit}>
@@ -65,4 +63,4 @@ function ModoPremiumForm({ userId, isPremium }) {
   );
 }
 
-export default ModoPremiumForm; // Exportación por defecto
+export default ModoPremiumForm; 

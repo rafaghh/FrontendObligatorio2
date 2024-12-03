@@ -13,11 +13,14 @@ export default function AdminSignIn() {
     setIsLoading(true);
 
     try {
-      const response = await fetch("http://localhost:5001/administradores/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, contrasenia: password }),
-      });
+      const response = await fetch(
+        "http://localhost:5001/administradores/login",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, contrasenia: password }),
+        }
+      );
 
       if (!response.ok) {
         const errorMessage = await response.text();

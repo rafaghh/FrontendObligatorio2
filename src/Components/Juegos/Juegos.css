@@ -1,7 +1,6 @@
-/* Contenedor principal */
 body {
   margin: 0;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   background-color: #f4f4f9;
 }
 
@@ -29,7 +28,6 @@ input[type="text"]:focus {
   box-shadow: 0 4px 10px rgba(0, 123, 255, 0.4);
 }
 
-/* Contenedor de juegos */
 .lugares-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -39,7 +37,6 @@ input[type="text"]:focus {
   max-width: 1200px;
 }
 
-/* Estilo del enlace */
 a {
   text-decoration: none;
   color: inherit;

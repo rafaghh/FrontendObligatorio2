@@ -11,7 +11,7 @@ function Perfil() {
   const [userData, setUserData] = useState(null);
   const [compras, setCompras] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [activeSection, setActiveSection] = useState("informacion"); // Estado para la sección activa
+  const [activeSection, setActiveSection] = useState("informacion"); 
 
   useEffect(() => {
     if (authenticatedUserId !== userId) {
@@ -22,8 +22,11 @@ function Perfil() {
 
     const fetchUserData = async () => {
       try {
-        const response = await fetch(`http://localhost:5001/usuarios/${userId}`);
-        if (!response.ok) throw new Error("Error al obtener los datos del usuario");
+        const response = await fetch(
+          `http://localhost:5001/usuarios/${userId}`
+        );
+        if (!response.ok)
+          throw new Error("Error al obtener los datos del usuario");
         const result = await response.json();
         setUserData(result);
       } catch (error) {
@@ -35,7 +38,9 @@ function Perfil() {
 
     const fetchCompras = async () => {
       try {
-        const response = await fetch(`http://localhost:5001/usuarios/${userId}/compras`);
+        const response = await fetch(
+          `http://localhost:5001/usuarios/${userId}/compras`
+        );
         if (!response.ok) throw new Error("Error al obtener las compras");
         const result = await response.json();
         setCompras(result);
@@ -49,23 +54,38 @@ function Perfil() {
   }, [userId, authenticatedUserId, navigate]);
 
   if (isLoading) return <Cargando />;
-  if (!userData) return <div className="perfil-error">No se encontraron datos del usuario</div>;
+  if (!userData)
+    return (
+      <div className="perfil-error">No se encontraron datos del usuario</div>
+    );
 
   return (
     <div className="perfil-container">
       <div className="perfil-sidebar">
         <h2>Menú</h2>
         <ul>
-          <li onClick={() => setActiveSection("informacion")} className={activeSection === "informacion" ? "active" : ""}>
+          <li
+            onClick={() => setActiveSection("informacion")}
+            className={activeSection === "informacion" ? "active" : ""}
+          >
             Información
           </li>
-          <li onClick={() => setActiveSection("editar")} className={activeSection === "editar" ? "active" : ""}>
+          <li
+            onClick={() => setActiveSection("editar")}
+            className={activeSection === "editar" ? "active" : ""}
+          >
             Editar Perfil
           </li>
-          <li onClick={() => setActiveSection("compras")} className={activeSection === "compras" ? "active" : ""}>
+          <li
+            onClick={() => setActiveSection("compras")}
+            className={activeSection === "compras" ? "active" : ""}
+          >
             Historial de Compras
           </li>
-          <li onClick={() => setActiveSection("premium")} className={activeSection === "premium" ? "active" : ""}>
+          <li
+            onClick={() => setActiveSection("premium")}
+            className={activeSection === "premium" ? "active" : ""}
+          >
             Modo Premium
           </li>
         </ul>
@@ -74,10 +94,19 @@ function Perfil() {
         {activeSection === "informacion" && (
           <section>
             <h2>Información del Usuario</h2>
-            <p><strong>Nombre:</strong> {userData.nombre}</p>
-            <p><strong>Email:</strong> {userData.email}</p>
-            <p><strong>Miembro desde:</strong> {new Date(userData.fechaRegistro).toLocaleDateString()}</p>
-            <p><strong>Tipo de usuario:</strong> {userData.tipoUsuario}</p>
+            <p>
+              <strong>Nombre:</strong> {userData.nombre}
+            </p>
+            <p>
+              <strong>Email:</strong> {userData.email}
+            </p>
+            <p>
+              <strong>Miembro desde:</strong>{" "}
+              {new Date(userData.fechaRegistro).toLocaleDateString()}
+            </p>
+            <p>
+              <strong>Tipo de usuario:</strong> {userData.tipoUsuario}
+            </p>
           </section>
         )}
         {activeSection === "editar" && (
@@ -95,15 +124,23 @@ function Perfil() {
               <ul className="compras-lista">
                 {compras.map((compra) => (
                   <li key={compra.idVenta}>
-                    <p><strong>Fecha:</strong> {new Date(compra.fechaDeVenta).toLocaleDateString()}</p>
-                    <p><strong>Monto Total:</strong> ${compra.montoTotal.toFixed(2)}</p>
+                    <p>
+                      <strong>Fecha:</strong>{" "}
+                      {new Date(compra.fechaDeVenta).toLocaleDateString()}
+                    </p>
+                    <p>
+                      <strong>Monto Total:</strong> $
+                      {compra.montoTotal.toFixed(2)}
+                    </p>
                     {compra.listaDetalles?.length > 0 && (
                       <ul>
                         {compra.listaDetalles.map((detalle) => (
                           <li key={detalle.idDetalle}>
-                            <strong>Producto:</strong> {detalle.videojuegoEntity.nombreVideojuego} - 
-                            <strong> Cantidad:</strong> {detalle.cantidad} - 
-                            <strong> Precio Unitario:</strong> ${detalle.precioUnitario.toFixed(2)}
+                            <strong>Producto:</strong>{" "}
+                            {detalle.videojuegoEntity.nombreVideojuego} -
+                            <strong> Cantidad:</strong> {detalle.cantidad} -
+                            <strong> Precio Unitario:</strong> $
+                            {detalle.precioUnitario.toFixed(2)}
                           </li>
                         ))}
                       </ul>
@@ -117,7 +154,10 @@ function Perfil() {
         {activeSection === "premium" && (
           <section>
             <h2>Modo Premium</h2>
-            <ModoPremiumForm userId={userId} isPremium={userData.tipoUsuario === "Premium"} />
+            <ModoPremiumForm
+              userId={userId}
+              isPremium={userData.tipoUsuario === "Premium"}
+            />
           </section>
         )}
       </div>
@@ -130,6 +170,7 @@ function EditarUsuarioForm({ userId, userData }) {
     nombre: userData.nombre,
     email: userData.email,
     contrasenia: "",
+    tarjeta: userData.tarjeta,
   });
 
   const handleChange = (e) => {
@@ -140,11 +181,14 @@ function EditarUsuarioForm({ userId, userData }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`http://localhost:5001/usuarios/edit/${userId}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        `http://localhost:5001/usuarios/edit/${userId}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        }
+      );
       if (!response.ok) throw new Error("Error al actualizar el perfil");
       alert("Perfil actualizado exitosamente");
     } catch (error) {
@@ -155,11 +199,41 @@ function EditarUsuarioForm({ userId, userData }) {
   return (
     <form className="editar-form" onSubmit={handleSubmit}>
       <label>Nombre:</label>
-      <input type="text" name="nombre" value={formData.nombre} onChange={handleChange} required />
+      <input
+        type="text"
+        name="nombre"
+        value={formData.nombre}
+        onChange={handleChange}
+        required
+      />
       <label>Email:</label>
-      <input type="email" name="email" value={formData.email} onChange={handleChange} required />
+      <input
+        type="email"
+        name="email"
+        value={formData.email}
+        onChange={handleChange}
+        required
+      />
       <label>Contraseña:</label>
-      <input type="password" name="contrasenia" value={formData.contrasenia} onChange={handleChange} required />
+      <input
+        type="password"
+        name="contrasenia"
+        value={formData.contrasenia}
+        onChange={handleChange}
+        required
+      />
+      <label>Tarjeta de Débito o Crédito:</label>
+      <input
+        type="text"
+        name="tarjeta"
+        value={formData.tarjeta}
+        onChange={handleChange}
+        required
+        placeholder="1234 5678 9012 3456"
+        maxLength={19} 
+        pattern="\d{4} \d{4} \d{4} \d{4}" 
+        title="Debe tener el formato 1234 5678 9012 3456"
+      />
       <button type="submit">Guardar Cambios</button>
     </form>
   );

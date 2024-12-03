@@ -1,4 +1,3 @@
-/* Contenedor principal */
 .admin-dashboard {
   max-width: 900px;
   margin: 50px auto;
@@ -9,7 +8,6 @@
   font-family: "Arial", sans-serif;
 }
 
-/* Título */
 .admin-dashboard h1 {
   text-align: center;
   margin-bottom: 20px;
@@ -18,7 +16,6 @@
   font-weight: bold;
 }
 
-/* Botón de agregar juego */
 .admin-dashboard button {
   display: block;
   margin: 0 auto 20px auto;
@@ -37,7 +34,6 @@
   background-color: #0056b3;
 }
 
-/* Tabla */
 .admin-dashboard table {
   width: 100%;
   border-collapse: collapse;
@@ -60,7 +56,6 @@
   background-color: #f9f9f9;
 }
 
-/* Botones de acción */
 .admin-dashboard td button {
   margin: 5px;
   padding: 8px 15px;
@@ -73,7 +68,7 @@
 }
 
 .admin-dashboard td button:first-of-type {
-  background-color: #28a745; /* Verde para "Editar" */
+  background-color: #28a745; 
 }
 
 .admin-dashboard td button:first-of-type:hover {
@@ -81,14 +76,13 @@
 }
 
 .admin-dashboard td button:last-of-type {
-  background-color: #dc3545; /* Rojo para "Eliminar" */
+  background-color: #dc3545; 
 }
 
 .admin-dashboard td button:last-of-type:hover {
   background-color: #c82333;
 }
 
-/* Responsive para móviles */
 @media (max-width: 768px) {
   .admin-dashboard {
     padding: 10px;

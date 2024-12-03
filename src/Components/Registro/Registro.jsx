@@ -26,7 +26,7 @@ function AgregarUsuario() {
         throw new Error("Error al registrar el usuario");
       }
       alert("Usuario registrado con éxito");
-      navigate("/login"); // Redirige al login después del registro
+      navigate("/login"); 
     } catch (error) {
       console.error("Error al registrar el usuario:", error);
       alert("Error al registrar el usuario. Por favor, verifica los datos.");

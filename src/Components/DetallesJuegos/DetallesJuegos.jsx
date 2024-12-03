@@ -32,7 +32,11 @@ function DetallesJuegos() {
   }
 
   if (!juego) {
-    return <div className="detalles-error">No se encontraron detalles para este juego.</div>;
+    return (
+      <div className="detalles-error">
+        No se encontraron detalles para este juego.
+      </div>
+    );
   }
 
   return (
@@ -55,7 +59,8 @@ function DetallesJuegos() {
             <strong>Stock Disponible:</strong> {juego.stock}
           </p>
           <p>
-            <strong>Publicado por:</strong> {juego.administrador?.nombre || "Desconocido"}
+            <strong>Publicado por:</strong>{" "}
+            {juego.administrador?.nombre || "Desconocido"}
           </p>
         </div>
       </div>

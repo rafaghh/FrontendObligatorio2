@@ -2,17 +2,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 437px; 
+  height: 437px;
 }
 
 .spinner {
   width: 120px;
   height: 120px;
-  border: 12px solid transparent; 
+  border: 12px solid transparent;
   border-top: 12px solid #035fc1;
-  border-right: 12px solid #007bff; 
+  border-right: 12px solid #007bff;
   border-radius: 50%;
-  animation: spin 1.5s linear infinite; 
+  animation: spin 1.5s linear infinite;
 }
 
 @keyframes spin {

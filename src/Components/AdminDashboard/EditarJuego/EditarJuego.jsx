@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./EditarJuego.css";
 
-
 function EditarJuego() {
-  const { id } = useParams(); // Obtiene el ID del juego desde la URL
+  const { id } = useParams(); 
   const [nombre, setNombre] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [precio, setPrecio] = useState("");
@@ -14,7 +13,6 @@ function EditarJuego() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Obtener los datos del juego desde el backend
     const fetchJuego = async () => {
       try {
         const response = await fetch(`http://localhost:5001/videojuegos/${id}`);
@@ -39,27 +37,30 @@ function EditarJuego() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-  
+
     try {
-      const response = await fetch(`http://localhost:5001/videojuegos/edit/${id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ 
-          nombreVideojuego: nombre, 
-          descripcion, 
-          precio: Number(precio), 
-          imagen,
-          stock: Number(stock)
-        }),
-      });
+      const response = await fetch(
+        `http://localhost:5001/videojuegos/edit/${id}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            nombreVideojuego: nombre,
+            descripcion,
+            precio: Number(precio),
+            imagen,
+            stock: Number(stock),
+          }),
+        }
+      );
       const result = await response.json();
-  
+
       console.log("Respuesta del servidor:", result);
-  
+
       if (!response.ok) {
         throw new Error(result.message || "Error desconocido al actualizar");
       }
-  
+
       alert("Juego actualizado con éxito");
       navigate("/admin-dashboard");
     } catch (error) {
@@ -67,69 +68,68 @@ function EditarJuego() {
       alert(error.message || "No se pudo actualizar el juego.");
     }
   };
-  
+
   if (isLoading) {
     return <div>Cargando...</div>;
   }
 
-    return (
-      <div className="editar-juego-container">
-        <h1>Editar Juego</h1>
-        <form className="editar-juego-form" onSubmit={handleSubmit}>
-          <label htmlFor="nombre">Nombre</label>
-          <input
-            type="text"
-            id="nombre"
-            value={nombre}
-            onChange={(e) => setNombre(e.target.value)}
-            placeholder="Nombre del juego"
-            required
-          />
-    
-          <label htmlFor="descripcion">Descripción</label>
-          <textarea
-            id="descripcion"
-            value={descripcion}
-            onChange={(e) => setDescripcion(e.target.value)}
-            placeholder="Descripción del juego"
-            required
-          />
-    
-          <label htmlFor="precio">Precio</label>
-          <input
-            type="number"
-            id="precio"
-            value={precio}
-            onChange={(e) => setPrecio(e.target.value)}
-            placeholder="Precio del juego"
-            required
-          />
-    
-          <label htmlFor="imagen">URL de la Imagen</label>
-          <input
-            type="text"
-            id="imagen"
-            value={imagen}
-            onChange={(e) => setImagen(e.target.value)}
-            placeholder="URL de la imagen"
-            required
-          />
-    
-          <label htmlFor="stock">Stock</label>
-          <input
-            type="number"
-            id="stock"
-            value={stock}
-            onChange={(e) => setStock(e.target.value)}
-            placeholder="Cantidad en stock"
-            required
-          />
-    
-          <button type="submit">Guardar Cambios</button>
-        </form>
-      </div>
-    );
-    
+  return (
+    <div className="editar-juego-container">
+      <h1>Editar Juego</h1>
+      <form className="editar-juego-form" onSubmit={handleSubmit}>
+        <label htmlFor="nombre">Nombre</label>
+        <input
+          type="text"
+          id="nombre"
+          value={nombre}
+          onChange={(e) => setNombre(e.target.value)}
+          placeholder="Nombre del juego"
+          required
+        />
+
+        <label htmlFor="descripcion">Descripción</label>
+        <textarea
+          id="descripcion"
+          value={descripcion}
+          onChange={(e) => setDescripcion(e.target.value)}
+          placeholder="Descripción del juego"
+          required
+        />
+
+        <label htmlFor="precio">Precio</label>
+        <input
+          type="number"
+          id="precio"
+          value={precio}
+          onChange={(e) => setPrecio(e.target.value)}
+          placeholder="Precio del juego"
+          required
+        />
+
+        <label htmlFor="imagen">URL de la Imagen</label>
+        <input
+          type="text"
+          id="imagen"
+          value={imagen}
+          onChange={(e) => setImagen(e.target.value)}
+          placeholder="URL de la imagen"
+          required
+        />
+
+        <label htmlFor="stock">Stock</label>
+        <input
+          type="number"
+          id="stock"
+          value={stock}
+          onChange={(e) => setStock(e.target.value)}
+          placeholder="Cantidad en stock"
+          required
+        />
+
+        <button type="submit">Guardar Cambios</button>
+      </form>
+    </div>
+  );
 }
 
 export default EditarJuego;

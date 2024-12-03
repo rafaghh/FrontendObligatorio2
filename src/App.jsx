@@ -11,15 +11,19 @@ import Perfil from "./Components/Perfil/Perfil";
 import AdminDashboard from "./Components/AdminDashboard/AdminDashboard";
 import AgregarJuego from "./Components/AdminDashboard/AgregarJuego/AgregarJuego";
 import EditarJuego from "./Components/AdminDashboard/EditarJuego/EditarJuego";
+import CarritoBarra from "./Components/Carrito/CarritoBarra";
 import React, { useState } from "react";
-import "./App.css"; // Asegúrate de incluir estilos personalizados aquí
+import "./App.css";
 
 function App() {
   const [searchTerm, setSearchTerm] = useState("");
+  const [isCartOpen, setIsCartOpen] = useState(false);
+
   const handleSearch = (searchValue) => setSearchTerm(searchValue);
+  const toggleCart = () => setIsCartOpen((prev) => !prev);
 
   const userId = sessionStorage.getItem("id");
-  const isAdmin = sessionStorage.getItem("adminId"); // Identificar si es un administrador
+  const isAdmin = sessionStorage.getItem("adminId");
 
   return (
     <div className="app-container">
@@ -31,15 +35,16 @@ function App() {
         <div className="overlay"></div>
       </div>
 
-
       <BrowserRouter>
-        <Navbar onSearch={handleSearch} />
+        <Navbar onSearch={handleSearch} onCartClick={toggleCart} />
+        <CarritoBarra isOpen={isCartOpen} toggleCart={toggleCart} />{" "}
+        {/* Movido aquí */}
         <Routes>
-          {/* Rutas abiertas a todos */}
-          <Route path="/" element={<Juegos searchTerm={searchTerm} />} />
+          <Route
+            path="/"
+            element={<Juegos searchTerm={searchTerm} toggleCart={toggleCart} />}
+          />
           <Route path="/juego/:id" element={<DetallesJuegos />} />
-
-          {/* Rutas solo para usuarios no autenticados */}
           {!userId && !isAdmin && (
             <>
               <Route path="/login" element={<Login />} />
@@ -47,8 +52,6 @@ function App() {
               <Route path="/registro" element={<Registro />} />
             </>
           )}
-
-          {/* Rutas solo para administradores */}
           {isAdmin && (
             <>
               <Route path="/admin-dashboard" element={<AdminDashboard />} />
@@ -56,18 +59,15 @@ function App() {
               <Route path="/editar-juego/:id" element={<EditarJuego />} />
             </>
           )}
-
-          {/* Rutas solo para usuarios normales */}
           {userId && !isAdmin && (
             <>
               <Route path="/perfil/:userId" element={<Perfil />} />
             </>
           )}
-
-          {/* Redirección genérica */}
           <Route path="*" element={<Login />} />
         </Routes>
       </BrowserRouter>
+
       <Footer />
     </div>
   );
