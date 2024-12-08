@@ -31,7 +31,7 @@
   color: white;
   padding: 20px;
   border-radius: 0 0 15px 15px;
-  height: 50%;
+  height: 44%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -48,7 +48,6 @@
 }
 
 .card-title {
-  font-size: 1.5em;
   font-weight: bold;
   margin-bottom: 10px;
 }
@@ -84,4 +83,10 @@
   border-radius: 5px;
   z-index: 1;
   text-transform: uppercase; 
+}
+
+.precio {
+  font-size: 35px; /* Tamaño de fuente grande */
+  font-weight: bold; /* Negrita para resaltar */
+  color: #ffffff; /* Color rojo para destacar */
 }

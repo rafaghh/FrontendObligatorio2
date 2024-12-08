@@ -58,10 +58,6 @@ function DetallesJuegos() {
           <p>
             <strong>Stock Disponible:</strong> {juego.stock}
           </p>
-          <p>
-            <strong>Publicado por:</strong>{" "}
-            {juego.administrador?.nombre || "Desconocido"}
-          </p>
         </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 import "./Juego.css";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
@@ -15,10 +15,10 @@ function Juego({
   categoria,
 }) {
   const { addToCart } = useCart();
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const handleBuyClick = (event) => {
-    event.stopPropagation(); 
+    event.stopPropagation();
     const game = {
       id,
       nombre: name,
@@ -34,7 +34,30 @@ function Juego({
   };
 
   const handleCardClick = () => {
+    navigate(`/juego/${id}`);
+  };
+
+  const handleSeeMoreClick = (event) => {
+    event.stopPropagation(); 
     navigate(`/juego/${id}`); 
+  };
+
+  const renderDescription = () => {
+    if (description.length > 20) {
+      return (
+        <>
+          {`${description.slice(0, 20)}...`}
+          <span
+            className="ver-mas"
+            onClick={handleSeeMoreClick}
+            style={{ color: "blue", cursor: "pointer", marginLeft: "5px" }}
+          >
+            Ver más
+          </span>
+        </>
+      );
+    }
+    return description;
   };
 
   return (
@@ -44,8 +67,8 @@ function Juego({
 
         <Card.Body className="card-body-container">
           <Card.Title>{name}</Card.Title>
-          <Card.Text>{description}</Card.Text>
-          <Card.Text>${precio}</Card.Text>
+          <Card.Text>{renderDescription()}</Card.Text>
+          <Card.Text class="precio" >${precio}</Card.Text>
           <div className="button-group">
             <Button
               variant="outline-light"
