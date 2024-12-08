@@ -2,9 +2,22 @@ import { useState, useEffect } from "react";
 
 const useCart = () => {
   const [cart, setCart] = useState(() => {
-    const savedCart = localStorage.getItem("cart");
-    return savedCart ? JSON.parse(savedCart) : [];
+    try {
+      const savedCart = localStorage.getItem("cart");
+      return savedCart ? JSON.parse(savedCart) : [];
+    } catch (error) {
+      console.error("Error al cargar el carrito desde localStorage:", error);
+      return [];
+    }
   });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem("cart", JSON.stringify(cart));
+    } catch (error) {
+      console.error("Error al guardar el carrito en localStorage:", error);
+    }
+  }, [cart]);
 
   const addToCart = (item, callback) => {
     const existingItem = cart.find((cartItem) => cartItem.id === item.id);
@@ -21,25 +34,34 @@ const useCart = () => {
     }
 
     setCart(updatedCart);
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
 
-    if (callback) callback(); 
+    if (callback) {
+      callback(updatedCart);
+    }
   };
 
   const removeFromCart = (id) => {
     const updatedCart = cart.filter((item) => item.id !== id);
     setCart(updatedCart);
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
 
   const clearCart = () => {
     setCart([]);
-    localStorage.removeItem("cart");
+    try {
+      localStorage.removeItem("cart");
+    } catch (error) {
+      console.error("Error al vaciar el carrito en localStorage:", error);
+    }
   };
 
   const refreshCart = () => {
-    const savedCart = localStorage.getItem("cart");
-    setCart(savedCart ? JSON.parse(savedCart) : []);
+    try {
+      const savedCart = localStorage.getItem("cart");
+      const parsedCart = savedCart ? JSON.parse(savedCart) : [];
+      setCart(parsedCart);
+    } catch (error) {
+      console.error("Error al refrescar el carrito desde localStorage:", error);
+    }
   };
 
   return { cart, addToCart, removeFromCart, clearCart, refreshCart };

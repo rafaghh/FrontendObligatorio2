@@ -1,22 +1,51 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import "./Navbar.css";
 
-function NavbarWeb({ onSearch, onCartClick, cartItemCount }) {
+function NavbarWeb({ onSearch, cartItemCount }) {
+  const navigate = useNavigate();
+  const [userName, setUserName] = useState("");
+
+  const userId = sessionStorage.getItem("id");
+  const adminId = sessionStorage.getItem("adminId");
+
+  useEffect(() => {
+    const fetchUserName = async () => {
+      if (userId) {
+        try {
+          const response = await fetch(
+            `http://localhost:5001/usuarios/${userId}`
+          );
+          if (!response.ok) {
+            throw new Error("No se pudo obtener la información del usuario");
+          }
+          const data = await response.json();
+          setUserName(data.nombre || "");
+        } catch (error) {
+          console.error("Error al obtener el nombre del usuario:", error);
+        }
+      }
+    };
+
+    fetchUserName();
+  }, [userId]);
+
   const handleSearchChange = (event) => {
     onSearch(event.target.value);
+  };
+
+  const handleCartClick = () => {
+    navigate("/carrito");
   };
 
   function Salir() {
     sessionStorage.clear();
     window.location.assign("/");
   }
-
-  const userId = sessionStorage.getItem("id");
-  const adminId = sessionStorage.getItem("adminId"); 
 
   return (
     <Navbar expand="lg" bg="dark" variant="dark">
@@ -53,7 +82,12 @@ function NavbarWeb({ onSearch, onCartClick, cartItemCount }) {
           </Nav>
 
           <div className="cart-container">
-            <button className="cart-button" onClick={onCartClick}>
+            {userName && (
+              <span className="welcome-message">
+                👋 Hola, {userName}! Qué gusto verte por aquí.
+              </span>
+            )}
+            <button className="cart-button" onClick={handleCartClick}>
               🛒 Carrito <span className="cart-count">{cartItemCount}</span>
             </button>
           </div>

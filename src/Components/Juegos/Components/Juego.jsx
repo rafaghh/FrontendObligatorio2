@@ -18,7 +18,7 @@ function Juego({
   const navigate = useNavigate();
 
   const handleBuyClick = (event) => {
-    event.stopPropagation();
+    event.stopPropagation(); 
     const game = {
       id,
       nombre: name,
@@ -28,9 +28,11 @@ function Juego({
       quantity: 1,
     };
 
-    addToCart(game, () => {
-      toggleCart();
-    });
+    addToCart(game);
+
+    setTimeout(() => {
+      navigate("/carrito");
+    }, 100); 
   };
 
   const handleCardClick = () => {
@@ -38,8 +40,8 @@ function Juego({
   };
 
   const handleSeeMoreClick = (event) => {
-    event.stopPropagation(); 
-    navigate(`/juego/${id}`); 
+    event.stopPropagation();
+    navigate(`/juego/${id}`);
   };
 
   const renderDescription = () => {
@@ -68,7 +70,7 @@ function Juego({
         <Card.Body className="card-body-container">
           <Card.Title>{name}</Card.Title>
           <Card.Text>{renderDescription()}</Card.Text>
-          <Card.Text class="precio" >${precio}</Card.Text>
+          <Card.Text class="precio">${precio}</Card.Text>
           <div className="button-group">
             <Button
               variant="outline-light"

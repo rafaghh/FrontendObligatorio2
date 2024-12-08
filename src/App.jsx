@@ -11,7 +11,7 @@ import Perfil from "./Components/Perfil/Perfil";
 import AdminDashboard from "./Components/AdminDashboard/AdminDashboard";
 import AgregarJuego from "./Components/AdminDashboard/AgregarJuego/AgregarJuego";
 import EditarJuego from "./Components/AdminDashboard/EditarJuego/EditarJuego";
-import EditarUsuario from "./Components/AdminDashboard/EditarUsuario/EditarUsuario"; 
+import EditarUsuario from "./Components/AdminDashboard/EditarUsuario/EditarUsuario";
 import CarritoBarra from "./Components/Carrito/CarritoBarra";
 import React, { useState } from "react";
 import "./App.css";
@@ -38,14 +38,20 @@ function App() {
 
       <BrowserRouter>
         <Navbar onSearch={handleSearch} onCartClick={toggleCart} />
-        <CarritoBarra isOpen={isCartOpen} toggleCart={toggleCart} />
         <Routes>
+          {/* Ruta principal */}
           <Route
             path="/"
             element={<Juegos searchTerm={searchTerm} toggleCart={toggleCart} />}
           />
+
+          {/* Detalles de juegos */}
           <Route path="/juego/:id" element={<DetallesJuegos />} />
 
+          {/* Ruta para carrito */}
+          <Route path="/carrito" element={<CarritoBarra />} />
+
+          {/* Rutas públicas */}
           {!userId && !isAdmin && (
             <>
               <Route path="/login" element={<Login />} />
@@ -54,6 +60,7 @@ function App() {
             </>
           )}
 
+          {/* Rutas para administradores */}
           {isAdmin && (
             <>
               <Route path="/admin-dashboard" element={<AdminDashboard />} />
@@ -63,12 +70,14 @@ function App() {
             </>
           )}
 
+          {/* Rutas para usuarios normales */}
           {userId && !isAdmin && (
             <>
               <Route path="/perfil/:userId" element={<Perfil />} />
             </>
           )}
 
+          {/* Ruta para manejar cualquier otra */}
           <Route
             path="*"
             element={
