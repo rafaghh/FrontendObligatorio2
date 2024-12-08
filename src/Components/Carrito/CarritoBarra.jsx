@@ -25,7 +25,7 @@ const CarritoBarra = () => {
       alert("No tienes productos en el carrito para realizar la compra.");
       return;
     }
-
+  
     try {
       const response = await fetch(
         `http://localhost:5001/usuarios/${user?.id}`
@@ -33,9 +33,9 @@ const CarritoBarra = () => {
       if (!response.ok) {
         throw new Error("Error al validar el usuario.");
       }
-
+  
       const userData = await response.json();
-
+  
       if (!userData.tarjeta) {
         alert(
           "No tienes una tarjeta asociada. Por favor, asocia una tarjeta válida en tu perfil para continuar."
@@ -43,7 +43,7 @@ const CarritoBarra = () => {
         navigate(`/perfil/${user?.id}`);
         return;
       }
-
+  
       const ventaResponse = await fetch("http://localhost:5001/ventas/add", {
         method: "POST",
         headers: {
@@ -57,12 +57,18 @@ const CarritoBarra = () => {
           })),
         }),
       });
-
+  
       if (!ventaResponse.ok) {
-        const errorData = await ventaResponse.json();
-        throw new Error(errorData.message || "Error al procesar la compra");
+        const contentType = ventaResponse.headers.get("Content-Type");
+        if (contentType && contentType.includes("application/json")) {
+          const errorData = await ventaResponse.json();
+          throw new Error(errorData.message || "Error al procesar la compra");
+        } else {
+          const errorText = await ventaResponse.text();
+          throw new Error(errorText || "Error al procesar la compra");
+        }
       }
-
+  
       alert("Compra realizada con éxito.");
       clearCart();
       navigate("/");
@@ -71,6 +77,7 @@ const CarritoBarra = () => {
       alert(`Hubo un problema al realizar la compra: ${error.message}`);
     }
   };
+  
 
   return (
     <div className="carrito-pagina">
