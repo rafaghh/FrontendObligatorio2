@@ -7,6 +7,7 @@ function TabVentas() {
   const [fechaInicio, setFechaInicio] = useState("");
   const [fechaFin, setFechaFin] = useState("");
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false); 
 
   useEffect(() => {
     const fetchVentas = async () => {
@@ -15,7 +16,7 @@ function TabVentas() {
         if (!response.ok) throw new Error("Error al cargar las ventas");
         const data = await response.json();
         setVentas(Array.isArray(data) ? data : []);
-        setError(""); 
+        setError("");
       } catch (error) {
         console.error("Error al cargar las ventas:", error);
         setVentas([]);
@@ -32,19 +33,22 @@ function TabVentas() {
       return;
     }
 
+    setIsLoading(true);
     try {
       const response = await fetch(
-        `http://localhost:5001/ventas/usuario/${idUsuario}`
+        `http://localhost:5001/usuarios/${idUsuario}/compras`
       );
       if (!response.ok)
         throw new Error("No se encontraron compras para este usuario.");
       const data = await response.json();
       setComprasUsuario(Array.isArray(data) ? data : []);
-      setError(""); 
+      setError("");
     } catch (error) {
       console.error("Error al buscar compras por usuario:", error);
       setError("No se encontraron compras para este usuario.");
-      setComprasUsuario([]); 
+      setComprasUsuario([]);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -54,6 +58,8 @@ function TabVentas() {
       return;
     }
 
+    setIsLoading(true);
+    setVentas([]); 
     try {
       const response = await fetch(
         `http://localhost:5001/ventas/fechas?inicio=${fechaInicio}&fin=${fechaFin}`
@@ -61,12 +67,14 @@ function TabVentas() {
       if (!response.ok) throw new Error("Error al buscar compras por fechas");
       const data = await response.json();
       setVentas(Array.isArray(data) ? data : []);
-      setError(""); 
+      setError("");
     } catch (error) {
       console.error("Error al buscar compras por fechas:", error);
       setError(
         "No se encontraron ventas para el rango de fechas seleccionado."
       );
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -107,8 +115,7 @@ function TabVentas() {
                       {new Date(compra.fechaDeVenta).toLocaleDateString()}
                     </td>
                     <td>
-                      {detalle.videojuegoEntity?.nombreVideojuego ||
-                        "Desconocido"}
+                      {detalle.videojuegoEntity?.nombreVideojuego || "Desconocido"}
                     </td>
                     <td>{detalle.cantidad}</td>
                     <td>${detalle.precioUnitario.toFixed(2)}</td>
@@ -142,44 +149,47 @@ function TabVentas() {
         <button onClick={buscarComprasPorFechas}>Buscar por Fechas</button>
       </div>
 
-      <div>
-        <h3>Todas las Ventas</h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Fecha</th>
-              <th>Videojuego</th>
-              <th>Cantidad</th>
-              <th>Precio Unitario</th>
-              <th>Total</th>
-            </tr>
-          </thead>
-          <tbody>
-            {ventas.length > 0 ? (
-              ventas.map((venta) =>
-                venta.listaDetalles.map((detalle) => (
-                  <tr key={detalle.idDetalle}>
-                    <td>{new Date(venta.fechaDeVenta).toLocaleDateString()}</td>
-                    <td>
-                      {detalle.videojuegoEntity?.nombreVideojuego ||
-                        "Desconocido"}
-                    </td>
-                    <td>{detalle.cantidad}</td>
-                    <td>${detalle.precioUnitario.toFixed(2)}</td>
-                    <td>
-                      ${(detalle.cantidad * detalle.precioUnitario).toFixed(2)}
-                    </td>
-                  </tr>
-                ))
-              )
-            ) : (
+      {isLoading ? (
+        <p>Cargando...</p>
+      ) : (
+        <div>
+          <h3>Todas las Ventas</h3>
+          <table>
+            <thead>
               <tr>
-                <td colSpan="5">No hay ventas disponibles.</td>
+                <th>Fecha</th>
+                <th>Videojuego</th>
+                <th>Cantidad</th>
+                <th>Precio Unitario</th>
+                <th>Total</th>
               </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {ventas.length > 0 ? (
+                ventas.map((venta) =>
+                  venta.listaDetalles.map((detalle) => (
+                    <tr key={detalle.idDetalle}>
+                      <td>{new Date(venta.fechaDeVenta).toLocaleDateString()}</td>
+                      <td>
+                        {detalle.videojuegoEntity?.nombreVideojuego || "Desconocido"}
+                      </td>
+                      <td>{detalle.cantidad}</td>
+                      <td>${detalle.precioUnitario.toFixed(2)}</td>
+                      <td>
+                        ${(detalle.cantidad * detalle.precioUnitario).toFixed(2)}
+                      </td>
+                    </tr>
+                  ))
+                )
+              ) : (
+                <tr>
+                  <td colSpan="5">No hay ventas disponibles.</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   );
 }
