@@ -1,13 +1,24 @@
 import React from "react";
+import { useNavigate } from "react-router-dom"; 
 import "./Juego.css";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import { useCart } from "../../../Hooks/useCart";
 
-function Juego({ id, imageUrl, name, description, precio, toggleCart }) {
+function Juego({
+  id,
+  imageUrl,
+  name,
+  description,
+  precio,
+  toggleCart,
+  categoria,
+}) {
   const { addToCart } = useCart();
+  const navigate = useNavigate(); 
 
-  const handleBuyClick = () => {
+  const handleBuyClick = (event) => {
+    event.stopPropagation(); 
     const game = {
       id,
       nombre: name,
@@ -18,13 +29,19 @@ function Juego({ id, imageUrl, name, description, precio, toggleCart }) {
     };
 
     addToCart(game, () => {
-      toggleCart(); 
+      toggleCart();
     });
   };
 
+  const handleCardClick = () => {
+    navigate(`/juego/${id}`); 
+  };
+
   return (
-    <div className="lugar-container">
+    <div className="lugar-container" onClick={handleCardClick}>
       <Card className="card" style={{ backgroundImage: `url(${imageUrl})` }}>
+        {categoria && <div className="categoria-label">{categoria}</div>}
+
         <Card.Body className="card-body-container">
           <Card.Title>{name}</Card.Title>
           <Card.Text>{description}</Card.Text>

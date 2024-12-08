@@ -67,3 +67,32 @@
     font-size: 14px;
   }
 }
+
+.form-content select {
+  width: 100%;
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  background-color: #ffffff;
+  cursor: pointer;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-content select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.form-content select option {
+  font-size: 16px;
+  color: #333;
+}
+
+@media (max-width: 576px) {
+  .form-content select {
+    font-size: 14px;
+  }
+}

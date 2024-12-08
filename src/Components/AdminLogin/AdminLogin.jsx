@@ -6,7 +6,6 @@ export default function AdminSignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -32,7 +31,7 @@ export default function AdminSignIn() {
       const result = await response.json();
       if (result.status === 200) {
         sessionStorage.setItem("adminId", result.data.id);
-        navigate("/admin-dashboard");
+        window.location.reload();
       } else {
         alert(result.message || "Administrador no encontrado");
       }

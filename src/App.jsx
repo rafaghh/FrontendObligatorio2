@@ -11,6 +11,7 @@ import Perfil from "./Components/Perfil/Perfil";
 import AdminDashboard from "./Components/AdminDashboard/AdminDashboard";
 import AgregarJuego from "./Components/AdminDashboard/AgregarJuego/AgregarJuego";
 import EditarJuego from "./Components/AdminDashboard/EditarJuego/EditarJuego";
+import EditarUsuario from "./Components/AdminDashboard/EditarUsuario/EditarUsuario"; 
 import CarritoBarra from "./Components/Carrito/CarritoBarra";
 import React, { useState } from "react";
 import "./App.css";
@@ -37,14 +38,14 @@ function App() {
 
       <BrowserRouter>
         <Navbar onSearch={handleSearch} onCartClick={toggleCart} />
-        <CarritoBarra isOpen={isCartOpen} toggleCart={toggleCart} />{" "}
-        {/* Movido aquí */}
+        <CarritoBarra isOpen={isCartOpen} toggleCart={toggleCart} />
         <Routes>
           <Route
             path="/"
             element={<Juegos searchTerm={searchTerm} toggleCart={toggleCart} />}
           />
           <Route path="/juego/:id" element={<DetallesJuegos />} />
+
           {!userId && !isAdmin && (
             <>
               <Route path="/login" element={<Login />} />
@@ -52,19 +53,34 @@ function App() {
               <Route path="/registro" element={<Registro />} />
             </>
           )}
+
           {isAdmin && (
             <>
               <Route path="/admin-dashboard" element={<AdminDashboard />} />
               <Route path="/agregar-juego" element={<AgregarJuego />} />
               <Route path="/editar-juego/:id" element={<EditarJuego />} />
+              <Route path="/editar-usuario/:id" element={<EditarUsuario />} />
             </>
           )}
+
           {userId && !isAdmin && (
             <>
               <Route path="/perfil/:userId" element={<Perfil />} />
             </>
           )}
-          <Route path="*" element={<Login />} />
+
+          <Route
+            path="*"
+            element={
+              isAdmin ? (
+                <AdminDashboard />
+              ) : userId ? (
+                <Perfil userId={userId} />
+              ) : (
+                <Login />
+              )
+            }
+          />
         </Routes>
       </BrowserRouter>
 

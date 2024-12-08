@@ -29,7 +29,7 @@ function Footer() {
           <ul>
             <li>Email: soporte@cazadoresdejuegos.com</li>
             <li>Teléfono: +598 1234 5678</li>
-            <li>Dirección: Av. Uruguay 1530, Montevideo, Uruguay</li>
+            <li>Dirección: Av. Uruguay 1570, Montevideo, Uruguay</li>
           </ul>
         </div>
 
